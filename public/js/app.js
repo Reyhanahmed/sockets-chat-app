@@ -10,3 +10,15 @@ socket.on('message', (message) => {
 	console.log(`New message: ${message.text}`);
 });
 
+// Handles submitting of new message
+let $form = jQuery('#message-form');
+
+$form.on('submit', (event) => {
+	event.preventDefault();
+
+	socket.emit('message', {
+		text: $form.find('input[name=message]').val()
+	});
+
+	$('input[name=message]').val('');
+});
