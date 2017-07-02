@@ -1,4 +1,8 @@
+let name = getQueryVariable('name') || 'Anonymous';
+let room = getQueryVariable('room');
 let socket = io();
+
+console.log(`${name} wants to join ${room}`);
 
 /* name of the event has to be the same as the one you want to listen from the server.js file,
  * but 'connect' and 'connection' are interchangeable, and should be used to connect to either
@@ -11,7 +15,8 @@ socket.on('connection', () => {
 socket.on('message', (message) => {
 	let momentTimestamp = moment.utc(message.timestamp);
 	console.log(`New message: ${message.text}`);
-	$('.messages').append(`<p><strong>${momentTimestamp.local().format('h:mm a')}: </strong>${message.text}</p>`);
+	$('.messages').append(`<p><strong> ${message.name} ${momentTimestamp.local().format('h:mm a')}: </strong></p>`)
+	$('.messages').append(`<p>${message.text}</p>`);
 });
 
 // Handles submitting of new message
@@ -21,6 +26,7 @@ $form.on('submit', (event) => {
 	event.preventDefault();
 
 	socket.emit('message', {
+		name,
 		text: $form.find('input[name=message]').val()
 	});
 
