@@ -16,14 +16,15 @@ io.on('connection', (socket) => {
 		message.timestamp = moment().valueOf();
 		io.emit('message', message);
 	});
+	
 
 	socket.emit('message', {
 		name: 'System',
 		timestamp: moment().valueOf(),
-		text: 'Welcome to the chat application!' 
+		text: 'Welcome to the chat application!'
 	});
 });
 
-http.listen(PORT, function(){
+http.listen(PORT, function() {
 	console.log('Server started');
 });
