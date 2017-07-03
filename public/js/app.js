@@ -19,9 +19,11 @@ socket.on('connect', () => {
 
 socket.on('message', (message) => {
 	let momentTimestamp = moment.utc(message.timestamp);
+	let $message = $('<li class="list-group-item"></li>');
 	console.log(`New message: ${message.text}`);
-	$('.messages').append(`<p><strong> ${message.name} ${momentTimestamp.local().format('h:mm a')}: </strong></p>`)
-	$('.messages').append(`<p>${message.text}</p>`);
+	$message.append(`<p><strong> ${message.name} ${momentTimestamp.local().format('h:mm a')}: </strong></p>`)
+	$message.append(`<p>${message.text}</p>`);
+	$('.messages').append($message);
 });
 
 // Handles submitting of new message
