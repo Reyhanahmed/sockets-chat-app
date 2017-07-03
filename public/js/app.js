@@ -8,8 +8,13 @@ console.log(`${name} wants to join ${room}`);
  * but 'connect' and 'connection' are interchangeable, and should be used to connect to either
  * server or client 
  */
-socket.on('connection', () => {
+socket.on('connect', () => {
 	console.log('Connected to socket.io server');
+	socket.emit('joinRoom', {
+		name: name,
+		room: room
+	});
+	console.log('YOOHHOOOO')
 });
 
 socket.on('message', (message) => {
@@ -32,3 +37,5 @@ $form.on('submit', (event) => {
 
 	$('input[name=message]').val('');
 });
+
+$("#room_name").text(room);
