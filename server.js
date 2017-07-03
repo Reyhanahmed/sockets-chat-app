@@ -49,7 +49,6 @@ io.on('connection', (socket) => {
 	socket.on('joinRoom', (req) => {
 		clientInfo[socket.id] = req;
 		socket.join(req.room);
-		console.log(req.room);
 		socket.broadcast.to(req.room).emit('message', {
 			name: 'System',
 			text: req.name + ' has joined!',
